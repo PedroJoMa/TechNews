@@ -29,4 +29,3 @@ def search_by_category(category):
         "category": search_filter
     })
     return [(notice["title"], notice["url"])for notice in response]
-
