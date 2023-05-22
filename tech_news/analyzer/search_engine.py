@@ -12,14 +12,6 @@ def search_by_title(title):
 
 # Requisito 8
 def search_by_date(date):
-    # regex_pattern = r"\d{4}-\d{2}-\d{2}"
-    # if not re.match(regex_pattern, date):
-    #     ValueError("Data inválida")
-    # formated_date = f"{date[8:10]}/{date[5:7]}/{date[0:4]}"
-    # response = db.news.find({
-    #     "timestamp": formated_date
-    # })
-    # return [(notice["title"], notice["url"])for notice in response]
     try:
         convert_date = datetime.strptime(date, "%Y-%m-%d").strftime("%d/%m/%Y")
         response = db.news.find({
@@ -32,4 +24,9 @@ def search_by_date(date):
 
 # Requisito 9
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    search_filter = re.compile(category, re.IGNORECASE)
+    response = db.news.find({
+        "category": search_filter
+    })
+    return [(notice["title"], notice["url"])for notice in response]
+
